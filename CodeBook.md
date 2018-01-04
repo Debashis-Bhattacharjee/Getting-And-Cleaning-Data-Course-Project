@@ -22,4 +22,4 @@ The script `run_analysis.R` performs the following
 - `subdataFeaturesNames` contains only the features for mean and standard deviation
 - `activityLabels` descriptive activity names from “activity_labels.tx
 - `Data` variable holding the concatenated subject and activity data
-- `Data2` independent tidy data set with the average of each variable for each activity and each subject.
+- `DataAggregrate` independent tidy data set with the average of each variable for each activity and each subject.

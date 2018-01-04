@@ -1,30 +1,26 @@
 library(plyr)
 
-## setting the base path of the files
-setwd(
-  "C:/Users/A611558/Work/Data Science/Coursera/Getting and Cleaning Data/Week4/Assignments/UCI HAR Dataset"
-)
 
 ## Read the activity test and training files
 
 dataActivityTest  <-
-  read.table("./test/Y_test.txt" , header = FALSE)
+  read.table("./UCI HAR Dataset/test/Y_test.txt" , header = FALSE)
 dataActivityTrain <-
-  read.table("./train/Y_train.txt", header = FALSE)
+  read.table("./UCI HAR Dataset/train/Y_train.txt", header = FALSE)
 
 
 ## Read the subject  test and training files
 
 dataSubjectTrain <-
-  read.table("./train/subject_train.txt", header = FALSE)
+  read.table("./UCI HAR Dataset/train/subject_train.txt", header = FALSE)
 dataSubjectTest  <-
-  read.table("./test/subject_test.txt", header = FALSE)
+  read.table("./UCI HAR Dataset/test/subject_test.txt", header = FALSE)
 
 ## Read the features  test and training files
 
-dataFeaturesTest  <- read.table("./test/X_test.txt", header = FALSE)
+dataFeaturesTest  <- read.table("./UCI HAR Dataset/test/X_test.txt", header = FALSE)
 dataFeaturesTrain <-
-  read.table("./train/X_train.txt", header = FALSE)
+  read.table("./UCI HAR Dataset/train/X_train.txt", header = FALSE)
 
 
 ## merge all subject , training and features files
@@ -37,7 +33,7 @@ dataFeatures <- rbind(dataFeaturesTrain, dataFeaturesTest)
 
 names(dataSubject) <- c("subject")
 names(dataActivity) <- c("activity")
-dataFeaturesNames <- read.table("./features.txt", head = FALSE)
+dataFeaturesNames <- read.table("./UCI HAR Dataset/features.txt", head = FALSE)
 names(dataFeatures) <- dataFeaturesNames$V2
 
 dataCombine <- cbind(dataSubject, dataActivity)
@@ -52,7 +48,7 @@ selectedNames <-
 Data <- subset(Data, select = selectedNames)
 
 ## get the description of activities
-activityLabels <- read.table("activity_labels.txt", header = FALSE)
+activityLabels <- read.table("./UCI HAR Dataset/activity_labels.txt", header = FALSE)
 activityLabels[, 2] <- as.character(activityLabels[, 2])
 
 ## factor the activity description
@@ -69,6 +65,6 @@ names(Data) <- gsub("Mag", "Magnitude", names(Data))
 names(Data) <- gsub("BodyBody", "Body", names(Data))
 
 
-Data2 <- aggregate(. ~ subject + activity, Data, mean)
-Data2 <- Data2[order(Data2$subject, Data2$activity), ]
-write.table(Data2, file = "./tidydata.txt", row.name = FALSE)
+DataAggregrate <- aggregate(. ~ subject + activity, Data, mean)
+DataAggregrate <- DataAggregrate[order(DataAggregrate$subject, DataAggregrate$activity), ]
+write.table(DataAggregrate, file = "./tidydata.txt", row.name = FALSE)
